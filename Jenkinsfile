@@ -1,4 +1,8 @@
 node {
+   stage("Checkout") {
+    checkout scm
+   }
+
    stage("do some important testing"){
        sleep(10)
    }
