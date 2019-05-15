@@ -1,0 +1,23 @@
+Sanity Test Stage
+Regression Test Stage
+	- running on develop branch
+	- manually triggered
+	- if succesfull trigger release to master
+	- regression can break sanity and vice versa
+
+
+Sanity Test
+Regression Test
+
+
+myTag = VersionNumber(projectStartDate: '2019-05-14', versionNumberString: '${BUILD_YEAR, XXXX}-${BUILDS_THIS_YEAR, XXXX}', versionPrefix: '17B0010G-sanity-', worstResultForIncrement: 'SUCCESS')
+       echo "Version is: ${myTag}"
+       
+       sh "git checkout master"
+       //sh "printenv | sort"
+       sh "git merge origin/develop"
+        sh "git tag -a ${myTag} -m \"Sanity relase verified by job: ${BUILD_TAG}\""
+       sshagent(['f6f65e5b-0f9c-4ee9-8e6a-fe46469cb8cb']) {
+           sh "git push origin"
+           sh "git push origin ${myTag}"
+        }
