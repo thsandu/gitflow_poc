@@ -1,10 +1,8 @@
 node {
    stage("Checkout") {
-    checkout scm
+    def commit = checkout(scm).GIT_COMMIT
+      echo "Das ist mein toller commit: ${commit}"
       sh "printenv | sort"
-     withCheckout(scm) {
-       echo "GIT_COMMIT is ${env.GIT_COMMIT}"
-    }
    }
 
    stage("do some important testing"){
